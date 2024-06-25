@@ -1,0 +1,49 @@
+openapi: 3.1.0
+info:
+  title: Hotel Information API
+  description: API to retrieve information about guest rooms, amenities, and meeting spaces for Sheraton, Marriott, and Hilton hotels.
+  version: 1.0.0
+servers:
+  - url: "https://hotel-api.onrender.com"
+    description: "Render deployed server"
+paths:
+  /hotel/information:
+    get:
+      operationId: getHotelInformation
+      summary: Retrieve hotel information
+      parameters:
+        - name: hotel
+          in: query
+          required: true
+          description: The name of the hotel (Sheraton, Marriott, Hilton)
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          description: The information category (e.g., guest rooms, amenities, meeting spaces)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotel:
+                    type: string
+                  category:
+                    type: string
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        additional_info:
+                          type: string
