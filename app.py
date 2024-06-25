@@ -13,7 +13,8 @@ hotel_data = {
             {"name": "Britannia Ballroom", "description": "9920 sqft", "additional_info": ""}
         ],
         "room_rental": [
-            {"name": "Deluxe Room", "cost": 250, "additional_info": ""}
+            {"name": "Britannia Ballroom", "cost": 1500, "additional_info": ""},
+            {"name": "Elmbridge Room", "cost": 800, "additional_info": ""}
         ],
         "catering_menu": [
             {"name": "Breakfast Buffet", "description": "Continental breakfast buffet", "price": 20}
@@ -84,7 +85,7 @@ def get_room_rental_costs():
     if hotel not in hotel_data:
         return jsonify({"error": "Hotel not found"}), 404
     
-    room_data = next((r for r in hotel_data[hotel].get("room_rental", []) if r["name"] == room), None)
+    room_data = next((r for r in hotel_data[hotel].get("room_rental", []) if r["name"].lower() == room.lower()), None)
     if room_data is None:
         return jsonify({"error": "Room not found"}), 404
     
@@ -103,7 +104,7 @@ def get_catering_options():
     if hotel not in hotel_data:
         return jsonify({"error": "Hotel not found"}), 404
     
-    menu_data = next((m for m in hotel_data[hotel].get("catering_menu", []) if m["name"] == menu), None)
+    menu_data = next((m for m in hotel_data[hotel].get("catering_menu", []) if m["name"].lower() == menu.lower()), None)
     if menu_data is None:
         return jsonify({"error": "Menu not found"}), 404
     
